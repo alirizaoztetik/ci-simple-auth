@@ -1,0 +1,97 @@
+/*ICO List countdown*/
+.countdown {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    position: relative;
+    width: 100%;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    font-size: 1.5rem;
+  }
+  
+  .countdown .part {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    min-width: 2rem;
+    padding-bottom: .5rem;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    -webkit-box-flex: 0;
+    -ms-flex-positive: 0;
+    flex-grow: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .countdown .part::before {
+    content: ":";
+    left: -0.25em;
+    position: absolute;
+    color: #4d79f6;
+  }
+  
+  .countdown .part:nth-child(1)::before,
+  .countdown .part.no-divider::before {
+    display: none;
+  }
+  
+  .countdown .part.days::after,
+  .countdown .part.hours::after,
+  .countdown .part.minutes::after,
+  .countdown .part.seconds::after {
+    position: absolute;
+    content: attr(data-label);
+    text-align: center;
+    bottom: .25rem;
+    left: 0;
+    width: 100%;
+    font-size: .3em;
+    color: inherit;
+  }
+  
+  .countdown .part + .part {
+    margin-left: .625rem;
+  }
+  
+  .countdown .days {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+  }
+  
+  .countdown .hours {
+    -webkit-box-ordinal-group: 3;
+    -ms-flex-order: 2;
+    order: 2;
+  }
+  
+  .countdown .minutes {
+    -webkit-box-ordinal-group: 4;
+    -ms-flex-order: 3;
+    order: 3;
+  }
+  
+  .countdown .seconds {
+    -webkit-box-ordinal-group: 5;
+    -ms-flex-order: 4;
+    order: 4;
+  }
+  
+  .countdown.blink .part::before {
+    display: none;
+  }
