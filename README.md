@@ -8,7 +8,7 @@ CI ver: 3.1.11
 Overwrite the codeigniter files you downloaded. You can then test it by installing the sample database.
 
 User information for testing;
-Username: test@test.com
+Username: test@test.com <br />
 Password: 123
 
 
