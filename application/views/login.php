@@ -17,18 +17,12 @@
 
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url('assets'); ?>/css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
-
 <body class="bg-gradient-primary">
-
   <div class="container">
-
     <!-- Outer Row -->
     <div class="row justify-content-center">
-
       <div class="col-xl-10 col-lg-12 col-md-9">
-
         <div class="card o-hidden border-0 shadow-lg my-5">
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
@@ -40,6 +34,10 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                   </div>
+                  <ul>
+                    <li>Demo Admin: admin@test.com | 123</li>
+                    <li>Demo User:  user@test.com | 123</li>
+                  </ul>
                   <form class="form-horizontal auth-form my-4" method="post" id="login_form">
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" name="user_email" id="user_email" aria-describedby="emailHelp" placeholder="Enter Email Address...">
@@ -47,22 +45,16 @@
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" name="user_password" id="user_password" placeholder="Password">
                     </div>
-                    <button class="btn btn-primary btn-round btn-block waves-effect waves-light" type="submit">Giriş Yap <i class="fas fa-sign-in-alt ml-1"></i></button>
+                    <button class="btn btn-primary btn-round btn-block waves-effect waves-light" type="submit">Log IN <i class="fas fa-sign-in-alt ml-1"></i></button>
                   </form>
-                  <hr>
-                  <div class="text-center">
-                    <a class="small" href="register.html">Create an Account!</a>
-                  </div>
+                  <a href="<?php echo base_url('docs'); ?>" target="_blank" class="btn btn-info btn-block">Documents</a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
   <!-- Bootstrap core JavaScript-->
@@ -92,7 +84,7 @@ $(document).ready(function(){
                         '<div class="alert icon-custom-alert alert-danger alert-danger-shadow my-3" role="alert">'+
                             '<i class="mdi mdi-close-box-multiple-outline alert-icon mt-1"></i>'+
                             '<div class="alert-text">'+
-                                '<strong class="alert-heading font-16">Hay Aksi!</strong><br />'+data.error+
+                                '<strong class="alert-heading font-16">Christ No!</strong><br />'+data.error+
                             '</div>'+         
                         '</div>'
                     );
@@ -102,7 +94,7 @@ $(document).ready(function(){
                         '<div class="alert icon-custom-alert alert-warning alert-warning-shadow my-3" role="alert">'+
                             '<i class="mdi mdi-close-box-multiple-outline alert-icon mt-1"></i>'+
                             '<div class="alert-text">'+
-                            '<strong class="alert-heading font-16">Oh Dikkat!</strong><br />'+data.warning+
+                            '<strong class="alert-heading font-16">Ohh Attention!</strong><br />'+data.warning+
                             '</div>'+                                            
                         '</div>'
                     );
@@ -115,7 +107,7 @@ $(document).ready(function(){
                         '<div class="alert icon-custom-alert alert-danger alert-danger-shadow my-3" role="alert">'+
                             '<i class="mdi mdi-close-box-multiple-outline alert-icon mt-1"></i>'+
                             '<div class="alert-text">'+
-                                '<strong class="alert-heading font-16">Hay Aksi!</strong><br />'+data.block+
+                                '<strong class="alert-heading font-16">Christ No!</strong><br />'+data.block+
                             '</div>'+         
                         '</div>'
                     );
@@ -128,7 +120,7 @@ $(document).ready(function(){
                         '<div class="alert icon-custom-alert alert-success alert-success-shadow my-3" role="alert">'+
                             '<i class="mdi mdi-check-all alert-icon mt-1"></i>'+
                             '<div class="alert-text">'+
-                            '<strong class="alert-heading font-16">İşte Bu!</strong><br />'+data.success+
+                            '<strong class="alert-heading font-16">That\'s it!</strong><br />'+data.success+
                             '</div>'+                                            
                         '</div>'
                     );

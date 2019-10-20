@@ -6,6 +6,7 @@ class MY_Controller extends CI_Controller {
     public function __construct(){
 		parent::__construct();
 		$this->sess = $this->session->userdata();
+		$this->auth_config = $this->config->item('auth');
 
 		if(get_cookie('timer')){
 			$value = explode('|', get_cookie('timer'));

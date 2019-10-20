@@ -10,6 +10,7 @@ $lang['auth_error_different_device'] = 'You have tried to log in from a differen
 $lang['auth_error_login_attemps'] = 'Your user information is incorrect. Your remaining trial right;';
 $lang['auth_error_login_attemps_time_front'] = 'Wrong entry times. Please';
 $lang['auth_error_login_attemps_time_end'] = 'minute wait.';
+$lang['auth_error_bad_code'] = 'The code entered is incorrect, please check your email address.';
 
 
 /* Info messages */

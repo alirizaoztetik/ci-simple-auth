@@ -4,8 +4,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class MY_Model extends CI_Model {
     public function __construct(){
 		parent::__construct();
-		$this->config->load('auth');
-		$this->lang->load('auth');
-		$this->config_vars = $this->config->item('auth');
+		$this->auth_config = $this->config->item('auth');
 	}
 }

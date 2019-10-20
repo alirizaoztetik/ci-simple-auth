@@ -8,25 +8,25 @@
 		$controller->load->helper('path'); 
 		$controller->config->load('auth');
 		$controller->lang->load('auth');
-		$config_vars = $controller->config->item('auth');
+		$auth_config = $controller->config->item('auth');
        	
        	// Configure email library
 		
 		$config = array();
-        $config['protocol']             = $config_vars['protocol'];
-        $config['smtp_host']            = $config_vars['smtp_host'];
-        $config['smtp_port']            = $config_vars['smtp_port'];
-		$config['smtp_timeout'] 		= $config_vars['smtp_timeout'];
-		$config['smtp_user']    		= $config_vars['smtp_user'];
-		$config['smtp_pass']    		= $config_vars['smtp_pass'];
-        $config['mailtype'] 			= $config_vars['mailtype'];
-        $config['charset']  			= $config_vars['charset'];
-        $config['newline']  			= $config_vars['newline'];
-        $config['wordwrap'] 			= $config_vars['wordwrap'];
+        $config['protocol']             = $auth_config['protocol'];
+        $config['smtp_host']            = $auth_config['smtp_host'];
+        $config['smtp_port']            = $auth_config['smtp_port'];
+		$config['smtp_timeout'] 		= $auth_config['smtp_timeout'];
+		$config['smtp_user']    		= $auth_config['smtp_user'];
+		$config['smtp_pass']    		= $auth_config['smtp_pass'];
+        $config['mailtype'] 			= $auth_config['mailtype'];
+        $config['charset']  			= $auth_config['charset'];
+        $config['newline']  			= $auth_config['newline'];
+        $config['wordwrap'] 			= $auth_config['wordwrap'];
 
         $controller->load->library('email');
         $controller->email->initialize($config);   
-		$controller->email->from( $config_vars['smtp_user'] , $controller->lang->line('mail_message_different_device_mail_title') );
+		$controller->email->from( $auth_config['smtp_user'] , $controller->lang->line('mail_message_different_device_mail_title') );
 		$controller->email->to($to);
 		$controller->email->subject($subject);
 		$controller->email->message($body);

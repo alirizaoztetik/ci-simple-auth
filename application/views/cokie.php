@@ -38,8 +38,8 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center auth-logo-text">
-                      <h4 class="mt-0 mb-3 mt-5">Lütfen Bekleyiniz!</h4>
-                      <p class="text-muted mb-0">Hatalı giriş yaptığınız için, aşağıdaki sürenin bitmesini bekleyiniz.</p>  
+                      <h4 class="mt-0 mb-3 mt-5">Please Wait!</h4>
+                      <p class="text-muted mb-0">Wait for the following time to expire because you entered incorrectly.</p>  
                   </div> 
                       <div data-role="countdown" data-minutes="<?php echo $timer->i; ?>" data-seconds="<?php echo $timer->s; ?>" data-on-alarm="window.location.href = '<?php echo base_url('login'); ?>'"></div>
                 </div>

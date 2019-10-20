@@ -17,6 +17,7 @@
 
   <!-- Custom styles for this template-->
   <link href="<?php echo base_url('assets'); ?>/css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<?php echo base_url('assets'); ?>/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -38,27 +39,25 @@
               <div class="messages"></div>
                 <div class="p-5">
                     <div class="text-center auth-logo-text">
-                        <h4 class="mt-0 mb-3 mt-5">Güvenlik Kodunuzu Girin</h4>
-                        <p class="text-muted mb-0">Yeni cihazdan giriş yaptınız. Mail adresinize gönderilmiş kodu bu ekranda girerek giriş sağlayabilirsiniz!</p>  
+                        <h4 class="mt-0 mb-3 mt-5">Enter Security Code</h4>
+                        <p class="text-muted mb-0">You have logged in from the new device. You can enter the code sent to your e-mail address on this screen!</p>  
                     </div>
-                    <form class="form-horizontal auth-form my-4" action="index.html">
+                    <form class="form-horizontal auth-form my-4" method="post" id="code_form">
                         <div class="form-group">
                             <div class="input-group mb-3">
                                 <span class="auth-form-icon">
                                     <i class="dripicons-lock-open"></i> 
                                 </span>                                                                                                              
-                                <input type="text" maxlength="10" class="form-control" id="user_code" placeholder="Kodu Girin">
+                                <input type="text" maxlength="<?php echo $maxlength; ?>" class="form-control" name="user_code" placeholder="Enter Code">
                             </div>                                    
-                        </div>        
+                        </div>    
+                        <div data-role="countdown" data-minutes="<?php echo $timer->i; ?>" data-seconds="<?php echo $timer->s; ?>" data-on-alarm="window.location.href = '<?php echo base_url('login'); ?>'"></div>
                         <div class="form-group mb-0 row">
                             <div class="col-12 mt-2">
-                                <button class="btn btn-primary btn-round btn-block waves-effect waves-light" type="submit">Kodu Gönder <i class="fas fa-lock-open ml-1"></i></button>
+                                <button class="btn btn-primary btn-round btn-block waves-effect waves-light" type="submit">Send Code <i class="fas fa-lock-open ml-1"></i></button>
                             </div> 
                         </div>                           
                     </form>
-                    <div class="m-3 text-center text-muted">
-                        <p class="">Mail gelmedi mi ?  <a href="" class="text-primary ml-2">Tekrar Gönder</a></p>
-                    </div>
                 </div>
               </div>
             </div>
@@ -69,15 +68,58 @@
 
   </div>
 
-  <!-- Bootstrap core JavaScript-->
   <script src="<?php echo base_url('assets'); ?>/vendor/jquery/jquery.min.js"></script>
   <script src="<?php echo base_url('assets'); ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="<?php echo base_url('assets'); ?>/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="<?php echo base_url('assets'); ?>/vendor/metro/metro.js"></script>
 
   <!-- Custom scripts for all pages-->
   <script src="<?php echo base_url('assets'); ?>/js/sb-admin-2.min.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#code_form').on('submit', function(e){
+        e.preventDefault();
+        $.ajax({
+                url:'<?php echo base_url("login/input_code")?>',
+                method: "POST",
+                data: new FormData(this),
+                dataType:'json',
+                contentType: false,
+                cache: false,
+                processData: false,
+                success:function(data){
+                    if(data.error){
+                        $('.messages').html(
+                            '<div class="alert icon-custom-alert alert-danger alert-danger-shadow my-3" role="alert">'+
+                                '<i class="mdi mdi-close-box-multiple-outline alert-icon mt-1"></i>'+
+                                '<div class="alert-text">'+
+                                    '<strong class="alert-heading font-16">Christ No!</strong><br />'+data.error+
+                                '</div>'+         
+                            '</div>'
+                        );
+                        $('.messages p').addClass('m-0');
+                    } else {
+                        $('.messages').html(
+                            '<div class="alert icon-custom-alert alert-success alert-success-shadow my-3" role="alert">'+
+                                '<i class="mdi mdi-check-all alert-icon mt-1"></i>'+
+                                '<div class="alert-text">'+
+                                '<strong class="alert-heading font-16">That\'s it!</strong><br />'+data.success+
+                                '</div>'+                                            
+                            '</div>'
+                        );
+                        $('.messages p').addClass('m-0');
+                        setTimeout(function(){
+                            window.location.href = '<?php echo base_url(); ?>';
+                        },2000);
+                    }
+                }
+            });
+      });
+    });
+  </script>
 </body>
 
 </html>

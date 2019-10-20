@@ -5,7 +5,8 @@ class Login extends CI_Controller {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->model('auth_model', 'auth');		
+		$this->load->model('auth_model', 'auth');
+		$this->auth_config = $this->config->item('auth');
 	}
 	
 	public function index(){
@@ -23,6 +24,7 @@ class Login extends CI_Controller {
 	}
 
 	public function code(){
+
 		if(get_cookie('timer')){
 			$value = explode('|', get_cookie('timer'));
 			$ip_address = $this->input->ip_address();
@@ -31,9 +33,60 @@ class Login extends CI_Controller {
 				redirect('login/block');
 			}
 		} else {
-			$data['title'] = 'Güvenlik Kodu';
+			if(get_cookie('coder')){
+				$value = explode('|', get_cookie('coder'));
+	
+				$now_time = new DateTime(date('H:i:s'));
+				$cookie_time= new DateTime($value[1]);
+				$calc = $now_time->diff($cookie_time);
+	
+				if($calc->invert > 0){
+					$data = array(
+						'user_ip_code' => null,
+						'user_updated_at' => date('Y-m-d H:i:s')
+					);
+	
+					if($this->auth->user_update($value[2], $data)){
+						delete_cookie('coder');
+						redirect('login');
+					}
+				}
+				
+				$data['title'] = 'Güvenlik Kodu';
+				$data['timer'] = $calc;
+				$data['maxlength'] = $this->auth_config['random_code_limit'];
 
-			$this->load->view('code', $data);	
+				$this->load->view('code', $data);	
+			} else {
+				redirect('login');
+			}
+		}
+	}
+
+	public function input_code(){
+
+		$this->form_validation->set_rules(
+			'user_code', 
+			'Güvenlik Kodu', 
+			'trim|required|numeric',
+			array(
+				'required' => 'Please enter the security code.',
+				'numeric' => 'Please check your security code.',
+			)
+		);
+
+		if ($this->form_validation->run() !== TRUE) {
+			$array['error'] = validation_errors();
+			echo json_encode($array);
+		}
+		else {
+			$user_code = $this->input->post('user_code');
+			$result = $this->auth->is_code($user_code);
+
+			if($result){
+				$array[$result['type']] = $result['message'];
+				echo json_encode($array);
+			}
 		}
 	}
 
@@ -66,27 +119,29 @@ class Login extends CI_Controller {
 	}
 
 	public function logout(){
-		$this->session->unset_userdata($this->sess);
+		delete_cookie('timer');
+		delete_cookie('coder');
+		$this->session->sess_destroy();
 		redirect('login');
 	}
 
 	public function auth(){
 		$this->form_validation->set_rules(
 			'user_email', 
-			'E-posta Adresi', 
+			'E-Mail Address', 
 			'trim|required|valid_email',
 			array(
-				'required' => 'Lütfen e-posta adresi giriniz.',
-				'valid_email' => 'Lütfen geçerli bir e-posta adresi giriniz.',
+				'required' => 'Please enter your e-mail address.',
+				'valid_email' => 'Please enter a valid e-mail address.',
 			)
 		);
 
 		$this->form_validation->set_rules(
 			'user_password', 
-			'Kullanıcı Şifresi', 
+			'User Password', 
 			'trim|required',
 			array(
-				'required' => 'Lütfen kullanıcı şifresini giriniz.',
+				'required' => 'Please enter the your password.',
 			)
 		);
 		if ($this->form_validation->run() !== TRUE) {
